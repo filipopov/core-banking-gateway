@@ -1,4 +1,4 @@
-package io.github.filipopov.gateway.application.port.out;
+package io.github.filipopov.gateway.application.error;
 
 /**
  * The provider could not be reached or answered with a server error: connection refused, timeout, 5xx or an open

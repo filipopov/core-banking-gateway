@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import io.github.filipopov.gateway.application.port.out.CoreBankingProvider;
-import io.github.filipopov.gateway.application.port.out.ProviderUnavailableException;
+import io.github.filipopov.gateway.application.error.ProviderUnavailableException;
 import io.github.filipopov.gateway.domain.account.Account;
 import io.github.filipopov.gateway.domain.account.AccountId;
 import io.github.filipopov.gateway.domain.account.Balance;

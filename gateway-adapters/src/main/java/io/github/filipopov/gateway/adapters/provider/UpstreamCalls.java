@@ -1,7 +1,7 @@
 package io.github.filipopov.gateway.adapters.provider;
 
-import io.github.filipopov.gateway.application.port.out.ProviderContractException;
-import io.github.filipopov.gateway.application.port.out.ProviderUnavailableException;
+import io.github.filipopov.gateway.application.error.ProviderContractException;
+import io.github.filipopov.gateway.application.error.ProviderUnavailableException;
 import io.github.filipopov.gateway.domain.error.DomainValidationException;
 import java.util.function.Function;
 import java.util.function.Supplier;

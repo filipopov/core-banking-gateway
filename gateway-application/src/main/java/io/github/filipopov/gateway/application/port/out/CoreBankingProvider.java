@@ -8,6 +8,8 @@ import io.github.filipopov.gateway.domain.transaction.Transaction;
 import io.github.filipopov.gateway.domain.transaction.TransactionQuery;
 import io.github.filipopov.gateway.domain.transfer.TransferRequest;
 import io.github.filipopov.gateway.domain.transfer.TransferResult;
+import io.github.filipopov.gateway.application.error.ProviderContractException;
+import io.github.filipopov.gateway.application.error.ProviderUnavailableException;
 import java.util.List;
 
 /**

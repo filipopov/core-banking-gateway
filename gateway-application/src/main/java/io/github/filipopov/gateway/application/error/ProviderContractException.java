@@ -1,4 +1,4 @@
-package io.github.filipopov.gateway.application.port.out;
+package io.github.filipopov.gateway.application.error;
 
 /**
  * The provider answered, but not in a way the adapter understands: an unexpected status, an unknown error code or a
