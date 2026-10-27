@@ -1,9 +1,12 @@
 package io.github.filipopov.gateway.app;
 
+import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAnyPackage;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
+import static com.tngtech.archunit.library.dependencies.SlicesRuleDefinition.slices;
 
+import com.tngtech.archunit.base.DescribedPredicate;
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
@@ -71,12 +74,12 @@ class ArchitectureTest {
             .because("sharing DTOs would let a v2 change silently break v1 clients");
 
     @ArchTest
-    static final ArchRule providers_do_not_know_each_other = noClasses().that().resideInAPackage("..adapters.ledgerline..")
-            .should().dependOnClassesThat().resideInAPackage("..adapters.coreflow..");
-
-    @ArchTest
-    static final ArchRule providers_do_not_know_each_other_reverse = noClasses().that().resideInAPackage("..adapters.coreflow..")
-            .should().dependOnClassesThat().resideInAPackage("..adapters.ledgerline..");
+    static final ArchRule providers_do_not_know_each_other = slices()
+            .matching("io.github.filipopov.gateway.adapters.(*)..")
+            .should().notDependOnEachOther()
+            .ignoreDependency(DescribedPredicate.alwaysTrue(), resideInAnyPackage(
+                    "..adapters.provider..", "..adapters.config..", "..adapters.resilience.."))
+            .because("each provider adapter only uses the shared plumbing, never another provider");
 
     @ArchTest
     static final ArchRule controllers_live_in_api = classes().that().areAnnotatedWith(RestController.class)
