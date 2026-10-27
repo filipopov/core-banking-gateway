@@ -1,0 +1,27 @@
+# The gateway plus both mock core banking providers.
+#   docker compose up --build
+# Gateway: http://localhost:8080  |  Ledgerline mock: http://localhost:8081  |  Coreflow mock: http://localhost:8082
+services:
+  ledgerline-mock:
+    image: wiremock/wiremock:3.13.2
+    volumes:
+      - ./mocks/ledgerline:/home/wiremock:ro
+    ports:
+      - "8081:8080"
+
+  coreflow-mock:
+    image: wiremock/wiremock:3.13.2
+    volumes:
+      - ./mocks/coreflow:/home/wiremock:ro
+    ports:
+      - "8082:8080"
+
+  gateway:
+    build: .
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8080:8080"
+    depends_on:
+      - ledgerline-mock
+      - coreflow-mock
