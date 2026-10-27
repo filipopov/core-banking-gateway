@@ -1,0 +1,16 @@
+# Used by docker-compose.yml: the mock providers are reachable by their service names.
+gateway:
+  tenants:
+    alpine-bank:
+      provider: ledgerline
+      base-url: http://ledgerline-mock:8080
+      features: [transfers, transaction-search]
+    harbor-bank:
+      provider: coreflow
+      base-url: http://coreflow-mock:8080
+      features: [transfers]
+      read-timeout: 3s
+    meadow-bank:
+      provider: ledgerline
+      base-url: http://ledgerline-mock:8080
+      features: []

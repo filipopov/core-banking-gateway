@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: core-banking-gateway
+  jackson:
+    generator:
+      write-bigdecimal-as-plain: true
+    default-property-inclusion: always
+
+server:
+  port: 8080
+  shutdown: graceful
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+# Tenants (banks) served by this gateway. Each tenant picks a provider adapter, points it at a base URL and switches
+# features on explicitly. Anything not listed under `features` is off.
+gateway:
+  tenants:
+    alpine-bank:
+      provider: ledgerline
+      base-url: http://localhost:8081
+      features: [transfers, transaction-search]
+    harbor-bank:
+      provider: coreflow
+      base-url: http://localhost:8082
+      features: [transfers]
+      read-timeout: 3s
+    meadow-bank:
+      provider: ledgerline
+      base-url: http://localhost:8081
+      features: []
+  resilience:
+    retry-max-attempts: 3
+    retry-wait: 200ms
+    failure-rate-threshold: 50
+    sliding-window-size: 20
+    minimum-number-of-calls: 10
+    wait-in-open-state: 30s
