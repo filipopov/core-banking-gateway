@@ -1,0 +1,74 @@
+{
+  "mappings": [
+    {
+      "name": "coreflow: transactions cf-acc-2001, first page",
+      "priority": 2,
+      "request": {
+        "method": "GET",
+        "urlPath": "/api/accounts/cf-acc-2001/transactions",
+        "queryParameters": { "pageToken": { "absent": true }, "text": { "absent": true } }
+      },
+      "response": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "jsonBody": {
+          "data": [
+            { "id": "tx-9f3a", "bookedAt": "2026-10-21T08:12:00+02:00", "amount": { "value": "-3.80", "currency": "EUR" }, "description": "Bakery", "counterparty": { "name": "Corner Bakery" } },
+            { "id": "tx-9f39", "bookedAt": "2026-10-19T17:45:10+02:00", "amount": { "value": "2400.00", "currency": "EUR" }, "description": "Salary", "counterparty": { "name": "Example Employer GmbH" } }
+          ],
+          "paging": { "nextPageToken": "pt-2" }
+        }
+      }
+    },
+    {
+      "name": "coreflow: transactions cf-acc-2001, second page",
+      "priority": 2,
+      "request": {
+        "method": "GET",
+        "urlPath": "/api/accounts/cf-acc-2001/transactions",
+        "queryParameters": { "pageToken": { "equalTo": "pt-2" }, "text": { "absent": true } }
+      },
+      "response": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "jsonBody": {
+          "data": [
+            { "id": "tx-9f38", "bookedAt": "2026-10-12T10:00:00+02:00", "amount": { "value": "-950.00", "currency": "EUR" }, "description": "Rent", "counterparty": { "name": "Example Housing" } },
+            { "id": "tx-9f37", "bookedAt": "2026-10-03T07:30:00+02:00", "amount": { "value": "-2.90", "currency": "EUR" }, "description": "Bakery", "counterparty": null }
+          ],
+          "paging": { "nextPageToken": null }
+        }
+      }
+    },
+    {
+      "name": "coreflow: transaction search cf-acc-2001",
+      "priority": 1,
+      "request": {
+        "method": "GET",
+        "urlPath": "/api/accounts/cf-acc-2001/transactions",
+        "queryParameters": { "text": { "equalTo": "bakery", "caseInsensitive": true } }
+      },
+      "response": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "jsonBody": {
+          "data": [
+            { "id": "tx-9f3a", "bookedAt": "2026-10-21T08:12:00+02:00", "amount": { "value": "-3.80", "currency": "EUR" }, "description": "Bakery", "counterparty": { "name": "Corner Bakery" } },
+            { "id": "tx-9f37", "bookedAt": "2026-10-03T07:30:00+02:00", "amount": { "value": "-2.90", "currency": "EUR" }, "description": "Bakery", "counterparty": null }
+          ],
+          "paging": {}
+        }
+      }
+    },
+    {
+      "name": "coreflow: transactions cf-acc-2002 (empty)",
+      "priority": 2,
+      "request": { "method": "GET", "urlPath": "/api/accounts/cf-acc-2002/transactions" },
+      "response": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "jsonBody": { "data": [], "paging": {} }
+      }
+    }
+  ]
+}

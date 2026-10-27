@@ -1,0 +1,38 @@
+{
+  "mappings": [
+    {
+      "name": "coreflow: balances cf-acc-2001",
+      "priority": 1,
+      "request": { "method": "GET", "urlPath": "/api/accounts/cf-acc-2001/balances" },
+      "response": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "jsonBody": {
+          "data": {
+            "balances": [
+              { "type": "closingBooked", "amount": { "value": "3120.40", "currency": "EUR" } },
+              { "type": "interimAvailable", "amount": { "value": "2980.40", "currency": "EUR" } }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "coreflow: balances cf-acc-2002",
+      "priority": 1,
+      "request": { "method": "GET", "urlPath": "/api/accounts/cf-acc-2002/balances" },
+      "response": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "jsonBody": {
+          "data": {
+            "balances": [
+              { "type": "closingBooked", "amount": { "value": "15000.00", "currency": "EUR" } },
+              { "type": "interimAvailable", "amount": { "value": "15000.00", "currency": "EUR" } }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

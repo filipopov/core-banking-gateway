@@ -1,0 +1,24 @@
+{
+  "mappings": [
+    {
+      "name": "ledgerline: balance LL-1001",
+      "priority": 1,
+      "request": { "method": "GET", "urlPath": "/v3/accounts/LL-1001/balance" },
+      "response": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "jsonBody": { "account_id": "LL-1001", "currency_code": "CHF", "booked_minor": 1254075, "available_minor": 1204075 }
+      }
+    },
+    {
+      "name": "ledgerline: balance LL-1002",
+      "priority": 1,
+      "request": { "method": "GET", "urlPath": "/v3/accounts/LL-1002/balance" },
+      "response": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "jsonBody": { "account_id": "LL-1002", "currency_code": "CHF", "booked_minor": 5000000, "available_minor": 5000000 }
+      }
+    }
+  ]
+}

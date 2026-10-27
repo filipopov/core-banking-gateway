@@ -1,0 +1,50 @@
+{
+  "mappings": [
+    {
+      "name": "coreflow: list accounts",
+      "request": { "method": "GET", "urlPath": "/api/accounts" },
+      "response": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "jsonBody": {
+          "data": [
+            { "id": "cf-acc-2001", "name": "Everyday", "type": "checking", "currency": "EUR", "identifiers": { "iban": "DE89370400440532013000" } },
+            { "id": "cf-acc-2002", "name": "Rainy day", "type": "savings", "currency": "EUR", "identifiers": { "iban": "DE02120300000000202051" } }
+          ],
+          "meta": { "count": 2 }
+        }
+      }
+    },
+    {
+      "name": "coreflow: get account cf-acc-2001",
+      "priority": 1,
+      "request": { "method": "GET", "urlPath": "/api/accounts/cf-acc-2001" },
+      "response": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "jsonBody": { "data": { "id": "cf-acc-2001", "name": "Everyday", "type": "checking", "currency": "EUR", "identifiers": { "iban": "DE89370400440532013000" } } }
+      }
+    },
+    {
+      "name": "coreflow: get account cf-acc-2002",
+      "priority": 1,
+      "request": { "method": "GET", "urlPath": "/api/accounts/cf-acc-2002" },
+      "response": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "jsonBody": { "data": { "id": "cf-acc-2002", "name": "Rainy day", "type": "savings", "currency": "EUR", "identifiers": { "iban": "DE02120300000000202051" } } }
+      }
+    },
+    {
+      "name": "coreflow: any other account resource is unknown",
+      "priority": 10,
+      "request": { "method": "GET", "urlPathPattern": "/api/accounts/[^/]+(/.*)?" },
+      "response": {
+        "status": 404,
+        "headers": { "Content-Type": "application/json" },
+        "body": "{\"faults\": [{\"faultCode\": \"CF-1404\", \"detail\": \"Account does not exist\", \"ref\": \"{{request.pathSegments.[2]}}\"}]}",
+        "transformers": ["response-template"]
+      }
+    }
+  ]
+}

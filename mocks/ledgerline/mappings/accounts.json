@@ -1,0 +1,49 @@
+{
+  "mappings": [
+    {
+      "name": "ledgerline: list accounts",
+      "request": { "method": "GET", "urlPath": "/v3/accounts" },
+      "response": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "jsonBody": {
+          "accounts": [
+            { "account_id": "LL-1001", "iban": "CH9300762011623852957", "display_name": "Private account", "currency_code": "CHF", "account_type": "CURRENT" },
+            { "account_id": "LL-1002", "iban": "CH5604835012345678009", "display_name": "Savings", "currency_code": "CHF", "account_type": "SAVINGS" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "ledgerline: get account LL-1001",
+      "priority": 1,
+      "request": { "method": "GET", "urlPath": "/v3/accounts/LL-1001" },
+      "response": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "jsonBody": { "account_id": "LL-1001", "iban": "CH9300762011623852957", "display_name": "Private account", "currency_code": "CHF", "account_type": "CURRENT" }
+      }
+    },
+    {
+      "name": "ledgerline: get account LL-1002",
+      "priority": 1,
+      "request": { "method": "GET", "urlPath": "/v3/accounts/LL-1002" },
+      "response": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "jsonBody": { "account_id": "LL-1002", "iban": "CH5604835012345678009", "display_name": "Savings", "currency_code": "CHF", "account_type": "SAVINGS" }
+      }
+    },
+    {
+      "name": "ledgerline: any other account resource is unknown",
+      "priority": 10,
+      "request": { "method": "GET", "urlPathPattern": "/v3/accounts/[^/]+(/.*)?" },
+      "response": {
+        "status": 404,
+        "headers": { "Content-Type": "application/json" },
+        "body": "{\"error\": {\"code\": \"ACCOUNT_NOT_FOUND\", \"message\": \"No account with this id\", \"account_id\": \"{{request.pathSegments.[2]}}\"}}",
+        "transformers": ["response-template"]
+      }
+    }
+  ]
+}

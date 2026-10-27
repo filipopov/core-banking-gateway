@@ -1,0 +1,81 @@
+{
+  "mappings": [
+    {
+      "name": "ledgerline: transactions LL-1001, first page (offset 0)",
+      "priority": 2,
+      "request": {
+        "method": "GET",
+        "urlPath": "/v3/accounts/LL-1001/transactions",
+        "queryParameters": { "offset": { "equalTo": "0" }, "search": { "absent": true } }
+      },
+      "response": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "jsonBody": {
+          "transactions": [
+            { "transaction_id": "LT-5005", "booking_date": "2026-10-20", "amount_minor": -450, "currency_code": "CHF", "remittance_info": "Coffee Bar Central", "counterparty_name": "Coffee Bar Central" },
+            { "transaction_id": "LT-5004", "booking_date": "2026-10-18", "amount_minor": 650000, "currency_code": "CHF", "remittance_info": "Salary October", "counterparty_name": "Example Employer Ltd" },
+            { "transaction_id": "LT-5003", "booking_date": "2026-10-15", "amount_minor": -12990, "currency_code": "CHF", "remittance_info": "Groceries", "counterparty_name": null }
+          ],
+          "offset": 0,
+          "limit": 3,
+          "total_count": 5
+        }
+      }
+    },
+    {
+      "name": "ledgerline: transactions LL-1001, second page (offset 3)",
+      "priority": 2,
+      "request": {
+        "method": "GET",
+        "urlPath": "/v3/accounts/LL-1001/transactions",
+        "queryParameters": { "offset": { "equalTo": "3" }, "search": { "absent": true } }
+      },
+      "response": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "jsonBody": {
+          "transactions": [
+            { "transaction_id": "LT-5002", "booking_date": "2026-10-10", "amount_minor": -180000, "currency_code": "CHF", "remittance_info": "Rent October", "counterparty_name": "Example Property AG" },
+            { "transaction_id": "LT-5001", "booking_date": "2026-10-05", "amount_minor": -320, "currency_code": "CHF", "remittance_info": "Coffee Kiosk", "counterparty_name": null }
+          ],
+          "offset": 3,
+          "limit": 3,
+          "total_count": 5
+        }
+      }
+    },
+    {
+      "name": "ledgerline: transaction search LL-1001",
+      "priority": 1,
+      "request": {
+        "method": "GET",
+        "urlPath": "/v3/accounts/LL-1001/transactions",
+        "queryParameters": { "search": { "equalTo": "coffee", "caseInsensitive": true } }
+      },
+      "response": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "jsonBody": {
+          "transactions": [
+            { "transaction_id": "LT-5005", "booking_date": "2026-10-20", "amount_minor": -450, "currency_code": "CHF", "remittance_info": "Coffee Bar Central", "counterparty_name": "Coffee Bar Central" },
+            { "transaction_id": "LT-5001", "booking_date": "2026-10-05", "amount_minor": -320, "currency_code": "CHF", "remittance_info": "Coffee Kiosk", "counterparty_name": null }
+          ],
+          "offset": 0,
+          "limit": 25,
+          "total_count": 2
+        }
+      }
+    },
+    {
+      "name": "ledgerline: transactions LL-1002 (empty)",
+      "priority": 2,
+      "request": { "method": "GET", "urlPath": "/v3/accounts/LL-1002/transactions" },
+      "response": {
+        "status": 200,
+        "headers": { "Content-Type": "application/json" },
+        "jsonBody": { "transactions": [], "offset": 0, "limit": 25, "total_count": 0 }
+      }
+    }
+  ]
+}
